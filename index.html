@@ -242,12 +242,14 @@
         line-height: 1.7;
     }
 
-    .buttons {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-top: 30px;
-    }
+   .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    position: relative;
+}
 
     .yes-btn,
     .no-btn {
@@ -263,7 +265,7 @@
         color: white;
     }
 
-    .no-btn {
+.no-btn {
     background: #eee;
     color: #555;
     border: none;
@@ -271,9 +273,16 @@
     border-radius: 30px;
     font-size: 17px;
     cursor: pointer;
+
     position: fixed;
-    z-index: 999;
-    transition: left 0.15s ease, top 0.15s ease;
+    z-index: 9999;
+
+    width: auto;
+    min-width: 0;
+    max-width: 150px;
+    white-space: nowrap;
+
+    transition: left 0.18s ease, top 0.18s ease;
 }
 
     /* =========================
@@ -706,42 +715,36 @@ But I really, really like you. ❤️
 
     }
 
-/* =================================
-   NO BUTTON - RUN AWAY
-================================= */
-
 const noButton = document.getElementById("noButton");
 
 function moveNoButton() {
 
+    const padding = 20;
+
     const buttonWidth = noButton.offsetWidth;
     const buttonHeight = noButton.offsetHeight;
 
-    const maxX = window.innerWidth - buttonWidth - 20;
-    const maxY = window.innerHeight - buttonHeight - 20;
+    const maxX = window.innerWidth - buttonWidth - padding;
+    const maxY = window.innerHeight - buttonHeight - padding;
 
-    const randomX = Math.max(
-        20,
-        Math.floor(Math.random() * maxX)
-    );
+    const randomX =
+        padding + Math.random() * (maxX - padding);
 
-    const randomY = Math.max(
-        20,
-        Math.floor(Math.random() * maxY)
-    );
+    const randomY =
+        padding + Math.random() * (maxY - padding);
 
     noButton.style.left = randomX + "px";
     noButton.style.top = randomY + "px";
 }
 
 
-/* Desktop */
+/* 🖥️ Desktop */
 noButton.addEventListener("mouseenter", function () {
     moveNoButton();
 });
 
 
-/* Mobile / Touch */
+/* 📱 Mobile */
 noButton.addEventListener("touchstart", function (e) {
 
     e.preventDefault();
@@ -749,17 +752,6 @@ noButton.addEventListener("touchstart", function (e) {
     moveNoButton();
 
 }, { passive: false });
-
-
-/* Extra protection */
-noButton.addEventListener("pointerdown", function (e) {
-
-    if (e.pointerType === "touch") {
-        e.preventDefault();
-        moveNoButton();
-    }
-
-});
    
 </script>
 
