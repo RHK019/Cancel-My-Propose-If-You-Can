@@ -264,9 +264,17 @@
     }
 
     .no-btn {
-        background: #eee;
-        color: #555;
-    }
+    background: #eee;
+    color: #555;
+    border: none;
+    padding: 13px 30px;
+    border-radius: 30px;
+    font-size: 17px;
+    cursor: pointer;
+    position: fixed;
+    z-index: 999;
+    transition: left 0.15s ease, top 0.15s ease;
+}
 
     /* =========================
        YES SCREEN
@@ -483,9 +491,9 @@
                     Yes ❤️
                 </button>
 
-                <button class="no-btn" onclick="sayNo()">
-                    No
-                </button>
+                <button class="no-btn" id="noButton">
+                   No
+               </button>
 
             </div>
 
@@ -698,6 +706,61 @@ But I really, really like you. ❤️
 
     }
 
+/* =================================
+   NO BUTTON - RUN AWAY
+================================= */
+
+const noButton = document.getElementById("noButton");
+
+function moveNoButton() {
+
+    const buttonWidth = noButton.offsetWidth;
+    const buttonHeight = noButton.offsetHeight;
+
+    const maxX = window.innerWidth - buttonWidth - 20;
+    const maxY = window.innerHeight - buttonHeight - 20;
+
+    const randomX = Math.max(
+        20,
+        Math.floor(Math.random() * maxX)
+    );
+
+    const randomY = Math.max(
+        20,
+        Math.floor(Math.random() * maxY)
+    );
+
+    noButton.style.left = randomX + "px";
+    noButton.style.top = randomY + "px";
+}
+
+
+/* Desktop */
+noButton.addEventListener("mouseenter", function () {
+    moveNoButton();
+});
+
+
+/* Mobile / Touch */
+noButton.addEventListener("touchstart", function (e) {
+
+    e.preventDefault();
+
+    moveNoButton();
+
+}, { passive: false });
+
+
+/* Extra protection */
+noButton.addEventListener("pointerdown", function (e) {
+
+    if (e.pointerType === "touch") {
+        e.preventDefault();
+        moveNoButton();
+    }
+
+});
+   
 </script>
 
 </body>
