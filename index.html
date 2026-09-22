@@ -1,1 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>A Special Message ❤️</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        min-height: 100vh;
+        overflow-x: hidden;
+        color: #333;
+    }
+
+    /* =========================
+       COMMON
+    ========================= */
+
+    .screen {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 25px;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 700px;
+        text-align: center;
+    }
+
+    /* =========================
+       OPENING SCREEN
+    ========================= */
+
+    .opening {
+        color: white;
+    }
+
+    .opening h1 {
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .opening p {
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    .envelope {
+        width: 230px;
+        height: 160px;
+        background: #fff;
+        margin: auto;
+        position: relative;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 15px 40px rgba(0,0,0,.25);
+        transition: .4s;
+    }
+
+    .envelope:hover {
+        transform: translateY(-8px) scale(1.03);
+    }
+
+    .envelope::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-left: 115px solid transparent;
+        border-right: 115px solid transparent;
+        border-top: 85px solid #ffb3c6;
+    }
+
+    .heart-seal {
+        position: absolute;
+        top: 58px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 42px;
+        z-index: 2;
+    }
+
+    .open-text {
+        margin-top: 30px;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    /* =========================
+       LOVE LETTER
+    ========================= */
+
+    .letter-card {
+        background: rgba(255,255,255,.96);
+        border-radius: 25px;
+        padding: 35px 25px;
+        box-shadow: 0 20px 50px rgba(0,0,0,.2);
+    }
+
+    .letter-card h2 {
+        color: #e91e63;
+        font-size: 30px;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        color: #777;
+        margin-bottom: 25px;
+    }
+
+    .typing {
+        min-height: 180px;
+        text-align: left;
+        line-height: 1.9;
+        font-size: 17px;
+        color: #444;
+        white-space: pre-line;
+    }
+
+    .next-btn,
+    .proposal-btn {
+        border: none;
+        padding: 13px 28px;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        background: #e91e63;
+        color: white;
+        margin-top: 25px;
+        box-shadow: 0 8px 20px rgba(233,30,99,.3);
+        transition: .3s;
+    }
+
+    .next-btn:hover,
+    .proposal-btn:hover {
+        transform: translateY(-3px);
+    }
+
+    /* =========================
+       PHOTO
+    ========================= */
+
+    .photo-box {
+        width: 220px;
+        height: 220px;
+        margin: 20px auto;
+        border-radius: 50%;
+        background: linear-gradient(135deg,#ffb6c1,#fff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 70px;
+        box-shadow: 0 15px 35px rgba(0,0,0,.15);
+        overflow: hidden;
+    }
+
+    .photo-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* =========================
+       MEMORIES
+    ========================= */
+
+    .memory-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-top: 25px;
+    }
+
+    .memory {
+        background: #fff;
+        padding: 20px 10px;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,.1);
+    }
+
+    .memory span {
+        font-size: 32px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .memory p {
+        font-size: 14px;
+        color: #666;
+    }
+
+    /* =========================
+       PROPOSAL
+    ========================= */
+
+    .proposal-card {
+        background: white;
+        border-radius: 30px;
+        padding: 45px 25px;
+        box-shadow: 0 20px 50px rgba(0,0,0,.2);
+    }
+
+    .big-heart {
+        font-size: 80px;
+        animation: heartbeat 1.2s infinite;
+    }
+
+    @keyframes heartbeat {
+        0%,100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.15);
+        }
+    }
+
+    .proposal-card h1 {
+        color: #e91e63;
+        font-size: 38px;
+        margin: 15px 0;
+    }
+
+    .proposal-card p {
+        font-size: 18px;
+        color: #666;
+        line-height: 1.7;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .yes-btn,
+    .no-btn {
+        border: none;
+        padding: 13px 30px;
+        border-radius: 30px;
+        font-size: 17px;
+        cursor: pointer;
+    }
+
+    .yes-btn {
+        background: #e91e63;
+        color: white;
+    }
+
+    .no-btn {
+        background: #eee;
+        color: #555;
+    }
+
+    /* =========================
+       YES SCREEN
+    ========================= */
+
+    .success h1 {
+        color: #e91e63;
+        font-size: 45px;
+        margin: 20px 0;
+    }
+
+    .success p {
+        font-size: 20px;
+        line-height: 1.8;
+        color: #555;
+    }
+
+    /* =========================
+       FLOATING HEARTS
+    ========================= */
+
+    .heart {
+        position: fixed;
+        bottom: -30px;
+        font-size: 22px;
+        animation: floatHeart 5s linear forwards;
+        pointer-events: none;
+        z-index: 100;
+    }
+
+    @keyframes floatHeart {
+        0% {
+            transform: translateY(0) rotate(0);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateY(-110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:600px) {
+
+        .opening h1 {
+            font-size: 32px;
+        }
+
+        .letter-card {
+            padding: 30px 20px;
+        }
+
+        .memory-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .proposal-card h1 {
+            font-size: 30px;
+        }
+
+        .buttons {
+            flex-direction: column;
+        }
+
+        .yes-btn,
+        .no-btn {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- =================================
+     SCREEN 1 : OPENING
+================================= -->
+
+<section id="openingScreen" class="screen opening">
+
+    <div class="container">
+
+        <h1>💌 A Special Message</h1>
+
+        <p>
+            Someone has something special to tell you...
+        </p>
+
+        <div class="envelope" onclick="openLetter()">
+
+            <div class="heart-seal">
+                ❤️
+            </div>
+
+        </div>
+
+        <div class="open-text">
+            Tap the envelope to open 💕
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     SCREEN 2 : LOVE LETTER
+================================= -->
+
+<section id="letterScreen" class="screen hidden">
+
+    <div class="container">
+
+        <div class="letter-card">
+
+            <h2>Dear Someone Special ❤️</h2>
+
+            <p class="subtitle">
+                There is something I have been wanting to tell you...
+            </p>
+
+            <div id="typingText" class="typing"></div>
+
+            <button class="next-btn" onclick="showMemories()">
+                Continue ❤️
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     SCREEN 3 : MEMORIES
+================================= -->
+
+<section id="memoryScreen" class="screen hidden">
+
+    <div class="container">
+
+        <div class="letter-card">
+
+            <h2>Some Beautiful Moments 🌸</h2>
+
+            <p class="subtitle">
+                Every little moment became special because of you.
+            </p>
+
+            <div class="photo-box">
+                📷
+            </div>
+
+            <div class="memory-grid">
+
+                <div class="memory">
+                    <span>😊</span>
+                    <p>That first conversation</p>
+                </div>
+
+                <div class="memory">
+                    <span>✨</span>
+                    <p>That unforgettable smile</p>
+                </div>
+
+                <div class="memory">
+                    <span>❤️</span>
+                    <p>All the little moments</p>
+                </div>
+
+            </div>
+
+            <button class="next-btn" onclick="showProposal()">
+                One Last Thing...
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     SCREEN 4 : PROPOSAL
+================================= -->
+
+<section id="proposalScreen" class="screen hidden">
+
+    <div class="container">
+
+        <div class="proposal-card">
+
+            <div class="big-heart">
+                ❤️
+            </div>
+
+            <h1>Will You Be Mine?</h1>
+
+            <p>
+                I don't know what the future holds,
+                but I know that I would love to make
+                beautiful memories with you. ❤️
+            </p>
+
+            <div class="buttons">
+
+                <button class="yes-btn" onclick="sayYes()">
+                    Yes ❤️
+                </button>
+
+                <button class="no-btn" onclick="sayNo()">
+                    No
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     SCREEN 5 : YES
+================================= -->
+
+<section id="successScreen" class="screen hidden">
+
+    <div class="container">
+
+        <div class="letter-card success">
+
+            <div class="big-heart">
+                💖
+            </div>
+
+            <h1>Yay! ❤️</h1>
+
+            <p>
+                You just made someone's heart
+                incredibly happy. 🥰
+            </p>
+
+            <p>
+                Here's to all the beautiful moments
+                waiting for us. ✨
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+    /* =================================
+       LOVE LETTER TEXT
+    ================================= */
+
+    const message = `
+There are some feelings that are difficult to put into words...
+
+Every time I talk to you, somehow my day becomes a little brighter.
+
+I don't know exactly when it happened,
+but somewhere along the way, you became someone very special to me.
+
+Your smile, your words, your little habits...
+I started noticing all of them.
+
+And today, I just wanted to be honest about what is in my heart.
+
+Maybe I am nervous saying this...
+
+But I really, really like you. ❤️
+`;
+
+
+    /* =================================
+       OPEN LETTER
+    ================================= */
+
+    function openLetter() {
+
+        document.getElementById("openingScreen")
+            .classList.add("hidden");
+
+        document.getElementById("letterScreen")
+            .classList.remove("hidden");
+
+        startTyping();
+
+    }
+
+
+    /* =================================
+       TYPING EFFECT
+    ================================= */
+
+    function startTyping() {
+
+        const element =
+            document.getElementById("typingText");
+
+        let index = 0;
+
+        function type() {
+
+            if (index < message.length) {
+
+                element.textContent += message.charAt(index);
+
+                index++;
+
+                setTimeout(type, 28);
+
+            }
+
+        }
+
+        type();
+
+    }
+
+
+    /* =================================
+       MEMORIES
+    ================================= */
+
+    function showMemories() {
+
+        document.getElementById("letterScreen")
+            .classList.add("hidden");
+
+        document.getElementById("memoryScreen")
+            .classList.remove("hidden");
+
+    }
+
+
+    /* =================================
+       PROPOSAL
+    ================================= */
+
+    function showProposal() {
+
+        document.getElementById("memoryScreen")
+            .classList.add("hidden");
+
+        document.getElementById("proposalScreen")
+            .classList.remove("hidden");
+
+    }
+
+
+    /* =================================
+       YES
+    ================================= */
+
+    function sayYes() {
+
+        document.getElementById("proposalScreen")
+            .classList.add("hidden");
+
+        document.getElementById("successScreen")
+            .classList.remove("hidden");
+
+        startHearts();
+
+    }
+
+
+    /* =================================
+       NO
+    ================================= */
+
+    function sayNo() {
+
+        alert(
+            "That's completely okay ❤️\n\n" +
+            "Thank you for reading the message."
+        );
+
+    }
+
+
+    /* =================================
+       FLOATING HEARTS
+    ================================= */
+
+    function startHearts() {
+
+        setInterval(() => {
+
+            const heart =
+                document.createElement("div");
+
+            heart.className = "heart";
+
+            heart.textContent =
+                ["❤️","💕","💖","💗","💘"]
+                [Math.floor(Math.random() * 5)];
+
+            heart.style.left =
+                Math.random() * 100 + "vw";
+
+            heart.style.fontSize =
+                (18 + Math.random() * 25) + "px";
+
+            heart.style.animationDuration =
+                (3 + Math.random() * 4) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+
+        }, 250);
+
+    }
+
+</script>
+
+</body>
+</html>
